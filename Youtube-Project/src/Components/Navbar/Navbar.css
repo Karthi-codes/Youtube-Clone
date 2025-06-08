@@ -8,11 +8,6 @@ nav{
     z-index: 10;
 }
 
-.flex-div{
-    width: 100%;
-}
-
-
 .nav-left .menu-icon{
     width: 22px;
     margin-right: 25px;
@@ -67,7 +62,7 @@ nav{
     }
 
     .flex-div{
-        width: 100%;
+        width: fit-content;
     }
 
     .nav-right .profile-icon{
@@ -83,4 +78,5 @@ nav{
         width: 100px;
     }
 }
+
 
