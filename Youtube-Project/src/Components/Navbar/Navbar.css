@@ -61,6 +61,10 @@ nav{
         display: none;
     }
 
+    .flex-div{
+        width: 100%;
+    }
+
     .nav-right .profile-icon{
         display: block;
         width: 30px;

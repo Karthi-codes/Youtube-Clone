@@ -24,7 +24,46 @@
 
 @media (max-width:900px) {
     
-    .recommended{
-        flex-basis: 100%;
-    }
+.recommended{
+  flex-basis: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 10px;
+}
+
+.side-video-list {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  text-decoration: none;
+  color: inherit;
+}
+
+.side-video-list img {
+  width: 160px;
+  height: 90px;
+  object-fit: cover;
+  margin-right: 10px;
+  border-radius: 6px;
+}
+
+.video-info {
+  flex: 1;
+  font-size: 14px;
+}
+
+.video-info h4 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.video-info h5,
+.video-info p {
+  margin: 4px 0;
+  font-size: 13px;
+  color: #555;
+}
+
 }

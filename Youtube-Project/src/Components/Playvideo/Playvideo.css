@@ -144,6 +144,7 @@
 @media (max-width:900px) {
     .play-video{
         flex-basis: 100%;
+        width: 100%;
     }
 
     .play-video iframe{
@@ -153,6 +154,7 @@
 
     .video-discription{
         padding-left: 0px;
+        width: fit-content;
     }
 
     .play-video .play-video-info span{
@@ -160,4 +162,25 @@
         margin-right: 15px;
         margin-top: 15px;
     }
+
+  .video-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .video-card img {
+    width: 100%;
+    height: auto;
+    margin: 0 0 10px;
+  }
+
+  .video-info {
+    width: 100%;
+}
+
+
+
+
+
 }
