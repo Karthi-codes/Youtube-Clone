@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './Playvideo.css'
 import Video1 from '../../assets/Video.mp4'
 import like from '../../assets/like.png'
@@ -7,114 +7,93 @@ import share from '../../assets/share.png'
 import save from '../../assets/save.png'
 import jack from '../../assets/jack.png'
 import user_profile from '../../assets/user_profile.jpg'
+import { data, useParams } from 'react-router-dom'
+import { API_KEY, value } from '../../data'
+import moment from 'moment'
 
 
+const Playvideo = () => {
 
+    const { videoId } =useParams();
+    const [apiData, setApiData] = useState(null);
+    const [channelData, setChannelData] = useState(null);
+    const [commentData, setCommentData] = useState([])
 
+    const fetch_video_data = async () => {
+        //Fetching Videos Data
+        const videodetails_url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoId}&key=${API_KEY}`
+            ;
+        await fetch(videodetails_url).then(res => res.json()).then(data => setApiData(data.items[0]));
+    }
 
-const Playvideo = ({ video }) => {
+    const fetch_other_data = async () => {
+        //Fetching Other Data 
+        const channelid_url = `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${apiData.snippet.channelId}&key=${API_KEY}`;
+        await fetch(channelid_url).then(res => res.json()).then(data => setChannelData(data.items[0]));
+
+        //Fetching Comments
+        const comments_url = `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&videoId=${videoId}&key=${API_KEY} `
+        await fetch(comments_url).then(res => res.json()).then(data => setCommentData(data.items))
+    }
+
+    useEffect(() => {
+        fetch_video_data();
+    }, [ videoId ])
+
+    useEffect(() => {
+        fetch_other_data();
+    }, [apiData])
+
     return (
         <div className='play-video'>
-            {/* <video src={Video1} controls autoPlay muted></video> */}
-            <video width="320" height="240" controls>
-                <source src={`${video}`} type="video/mp4"/>
-                    <source src={`${video}`} type="video/ogg"/>
-                        Your browser does not support the video tag.
-            </video>
+            {/* <video src={Video1}></video> */}
+            <iframe src={`https://www.youtube.com/embed/${videoId}?autoplay=1`} frameBorder="0" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen
+            ></iframe>
 
-
-                    <h3>Best channel to learn coding that help you to be a web Developer</h3>
-                    <div className='play-video-info'>
-                        <p>125 views & Like; 2 Days Ago</p>
-                        <div>
-                            <span><img src={like} alt="" />130</span>
-                            <span><img src={dislike} alt="" />3</span>
-                            <span><img src={share} alt="" />Share</span>
-                            <span><img src={save} alt="" />Save</span>
-                        </div>
-                    </div>
-                    <hr />
-                    <div className="publisher">
-                        <img src={jack} alt="" />
-                        <div>
-                            <p>Greatstack</p>
-                            <span>1M Subcribers</span>
-                        </div>
-                        <button>Subscribe</button>
-                    </div>
-                    <div className="video-discription">
-                        <p>Channel that makes learning Easy</p>
-                        <p>Subscribe Greatstack to watch More Tutorials on Web Development </p>
-                        <hr />
-                        <h4>130 Comments</h4>
-                        <div className="comment">
-                            <img src={user_profile} alt="" />
-                            <div>
-                                <h3>Karthi <span>1 Day Ago</span></h3>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae laborum nesciunt quos reprehenderit harum, praesentium atque dolorum porro nihil magnam ipsam veritatis nisi voluptatum similique ex, aperiam perferendis accusamus repellendus.</p>
-                                <div className="comment-action">
-                                    <img src={like} alt="" />
-                                    <span>200</span>
-                                    <img src={dislike} alt="" />
-                                </div>
-                            </div>
-
-                        </div>
-                        <div className="comment">
-                            <img src={user_profile} alt="" />
-                            <div>
-                                <h3>Karthi <span>1 Day Ago</span></h3>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae laborum nesciunt quos reprehenderit harum, praesentium atque dolorum porro nihil magnam ipsam veritatis nisi voluptatum similique ex, aperiam perferendis accusamus repellendus.</p>
-                                <div className="comment-action">
-                                    <img src={like} alt="" />
-                                    <span>200</span>
-                                    <img src={dislike} alt="" />
-                                </div>
-                            </div>
-
-                        </div>
-                        <div className="comment">
-                            <img src={user_profile} alt="" />
-                            <div>
-                                <h3>Karthi <span>1 Day Ago</span></h3>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae laborum nesciunt quos reprehenderit harum, praesentium atque dolorum porro nihil magnam ipsam veritatis nisi voluptatum similique ex, aperiam perferendis accusamus repellendus.</p>
-                                <div className="comment-action">
-                                    <img src={like} alt="" />
-                                    <span>200</span>
-                                    <img src={dislike} alt="" />
-                                </div>
-                            </div>
-
-                        </div>
-                        <div className="comment">
-                            <img src={user_profile} alt="" />
-                            <div>
-                                <h3>Karthi <span>1 Day Ago</span></h3>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae laborum nesciunt quos reprehenderit harum, praesentium atque dolorum porro nihil magnam ipsam veritatis nisi voluptatum similique ex, aperiam perferendis accusamus repellendus.</p>
-                                <div className="comment-action">
-                                    <img src={like} alt="" />
-                                    <span>200</span>
-                                    <img src={dislike} alt="" />
-                                </div>
-                            </div>
-
-                        </div>
-                        <div className="comment">
-                            <img src={user_profile} alt="" />
-                            <div>
-                                <h3>Karthi <span>1 Day Ago</span></h3>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae laborum nesciunt quos reprehenderit harum, praesentium atque dolorum porro nihil magnam ipsam veritatis nisi voluptatum similique ex, aperiam perferendis accusamus repellendus.</p>
-                                <div className="comment-action">
-                                    <img src={like} alt="" />
-                                    <span>200</span>
-                                    <img src={dislike} alt="" />
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
+            <h3>{apiData ? apiData.snippet.title : "Title Here"}</h3>
+            <div className='play-video-info'>
+                <p>{apiData ? value(apiData.statistics.viewCount) : "160k"} views & Like; {apiData ? moment(apiData.snippet.publishedAt).fromNow() : ""}</p>
+                <div>
+                    <span><img src={like} alt="" />{apiData ? value(apiData.statistics.likeCount) : 155}</span>
+                    <span><img src={dislike} alt="" />3</span>
+                    <span><img src={share} alt="" />Share</span>
+                    <span><img src={save} alt="" />Save</span>
                 </div>
-                )
+            </div>
+            <hr />
+            <div className="publisher">
+                <img src={channelData ? channelData.snippet.thumbnails.default.url : ""} alt="" />
+                <div>
+                    <p>{apiData ? apiData.snippet.title : ""}</p>
+                    <span>{channelData ? value(channelData.statistics.subscriberCount) : "1M"} Subcribers</span>
+                </div>
+                <button>Subscribe</button>
+            </div>
+            <div className="video-discription">
+                <p>{apiData ? apiData.snippet.description.slice(0, 350) : "Description Here"}</p>
+                <hr />
+                <h4>{apiData ? value(apiData.statistics.commentCount) : 102} Comments</h4>
+
+                {commentData.map((item,index) => {
+                    return (
+                        <div key={index} className="comment">
+                            <img src={item.snippet.topLevelComment.snippet.authorProfileImageUrl} alt="" />
+                            <div>
+                                <h3>{item.snippet.topLevelComment.snippet.authorDisplayName} <span>1 Day Ago</span></h3>
+                                <p>{item.snippet.topLevelComment.snippet.textDisplay}</p>
+                                <div className="comment-action">
+                                    <img src={like} alt="" />
+                                    <span>{item.snippet.topLevelComment.snippet.likeCount}</span>
+                                    <img src={dislike} alt="" />
+                                </div>
+                            </div>
+                        </div>
+                    )
+                })}
+
+            </div>
+        </div>
+    )
 }
 
-                export default Playvideo
+export default Playvideo

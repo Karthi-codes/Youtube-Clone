@@ -1,90 +1,40 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './Recommend.css'
-import thumbnail1 from "../../assets/thumbnail1.png"
-import thumbnail2 from "../../assets/thumbnail2.png"
-import thumbnail3 from "../../assets/thumbnail3.png"
-import thumbnail4 from "../../assets/thumbnail4.png"
-import thumbnail5 from "../../assets/thumbnail5.png"
-import thumbnail6 from "../../assets/thumbnail6.png"
-import thumbnail7 from "../../assets/thumbnail7.png"
-import thumbnail8 from "../../assets/thumbnail8.png"
+import { API_KEY, value } from '../../data'
+import { data, Link } from 'react-router-dom'
 
-const Recommend = () => {
+const Recommend = ({ categoryId }) => {
+
+    const [apidata, setApiData] = useState([]);
+
+
+    const fetch_data = async () => {
+
+        const relatedvideo_url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=22&regionCode=US&videoCategoryId=${categoryId}&key=${API_KEY}`
+
+        await fetch(relatedvideo_url).then(res => res.json()).then(data => setApiData(data.items))
+    }
+
+    useEffect(() => {
+        fetch_data()
+    }, [])
+
     return (
         <div className='recommended'>
-            <div className="side-video-list">
-                <img src={thumbnail1} alt="" />
+            {apidata.map((item,index)=>{
+                return(
+            <Link to={`/video/${item.snippet.categoryId}/${item.id}`} key={index} className="side-video-list">
+                <img src={item.snippet.thumbnails.medium.url} alt="" />
                 <div className="video-info">
-                    <h4>Best channel to learn coding that help you to be a web Developer</h4>
-                    <h5>Greatstack</h5>
-                    <p>155k views & bull; 2 Days Ago</p>           
+                    <h4>{item.snippet.title}</h4>
+                    <h5>{item.snippet.channelTitle}</h5>
+                    <p>{value(item.statistics.viewCount)} Views</p>
                 </div>
-            </div>
+            </Link>
+            )
+})}
+        </div >
 
-            <div className="side-video-list">
-                <img src={thumbnail2} alt="" />
-                <div className="video-info">
-                    <h4>Best channel to learn coding that help you to be a web Developer</h4>
-                    <h5>Greatstack</h5>
-                    <p>151k views & bull; 2 Days Ago</p>           
-                </div>
-            </div>
-
-            <div className="side-video-list">
-                <img src={thumbnail3} alt="" />
-                <div className="video-info">
-                    <h4>Best channel to learn coding that help you to be a web Developer</h4>
-                    <h5>Greatstack</h5>
-                    <p>150k views & bull; 2 Days Ago</p>           
-                </div>
-            </div>
-
-            <div className="side-video-list">
-                <img src={thumbnail4} alt="" />
-                <div className="video-info">
-                    <h4>Best channel to learn coding that help you to be a web Developer</h4>
-                    <h5>Greatstack</h5>
-                    <p>149k views & bull; 2 Days Ago</p>           
-                </div>
-            </div>
-
-            <div className="side-video-list">
-                <img src={thumbnail5} alt="" />
-                <div className="video-info">
-                    <h4>Best channel to learn coding that help you to be a web Developer</h4>
-                    <h5>Greatstack</h5>
-                    <p>115k views & bull; 2 Days Ago</p>           
-                </div>
-            </div>
-
-            <div className="side-video-list">
-                <img src={thumbnail6} alt="" />
-                <div className="video-info">
-                    <h4>Best channel to learn coding that help you to be a web Developer</h4>
-                    <h5>Greatstack</h5>
-                    <p>110k views & bull; 2 Days Ago</p>           
-                </div>
-            </div>
-
-            <div className="side-video-list">
-                <img src={thumbnail7} alt="" />
-                <div className="video-info">
-                    <h4>Best channel to learn coding that help you to be a web Developer</h4>
-                    <h5>Greatstack</h5>
-                    <p>100k views & bull; 2 Days Ago</p>           
-                </div>
-            </div>
-
-            <div className="side-video-list">
-                <img src={thumbnail8} alt="" />
-                <div className="video-info">
-                    <h4>Best channel to learn coding that help you to be a web Developer</h4>
-                    <h4>Greatstack</h4>
-                    <h4>90k views & bull; 2 Days Ago</h4>           
-                </div>
-            </div>
-        </div>
-        
     )
 }
 

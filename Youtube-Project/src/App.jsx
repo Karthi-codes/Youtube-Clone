@@ -9,9 +9,6 @@ const App = () => {
 
   const[sidebar,setSidebar]=useState(true);
 
-
-
-
   return (
     <div>
       <Navbar setSidebar={setSidebar} />
