@@ -59,7 +59,41 @@ nav{
 
 /* Css for the Nav Bar */
 
-@media (max-width:900px) {
+@media (max-width:500px) {
+
+    .menu-icon{
+        display: none;
+    }
+
+    .nav-right img{
+        display: none;
+    }
+
+    .flex-div{
+        flex-basis: 100%;
+        width: 100%;
+    }
+
+    .nav-right  .profile-icon{
+        display: block;
+        width: 40px;
+        position: absolute;
+        left: 350px;
+        border-radius: 50%;
+    }
+
+    .logo{
+        width: 90px;
+    }
+
+    .nav-middle .search-box input{
+        width: 100px;
+    }
+
+}
+
+
+@media (min-width:576px) and (max-width:900px) {
     .menu-icon{
         display: none;
     }
@@ -72,9 +106,53 @@ nav{
         width: 100%;
     }
 
-    .nav-right .profile-icon{
+    .nav-middle .search-box img{
+        width: 15px;
+        margin-left: 100px;
+    }
+
+    .nav-right  .profile-icon{
         display: block;
-        width: 30px;
+        width: 40px;
+        position: absolute;
+        left: 700px;
+        border-radius: 50%;
+    }
+
+    .logo{
+        width: 90px;
+    }
+
+    .nav-middle .search-box input{
+        width: 100px;
+    }
+
+}
+
+@media (min-width:900px) and (max-width:1024px) {
+    .menu-icon{
+        display: none;
+    }
+
+    .nav-right img{
+        display: none;
+    }
+
+    .flex-div{
+        width: 100%;
+    }
+
+    .nav-middle .search-box img{
+        width: 15px;
+        margin-left: 175px;
+    }
+
+    .nav-right  .profile-icon{
+        display: block;
+        width: 40px;
+        position: absolute;
+        left: 975px;
+        border-radius: 50%;
     }
 
     .logo{

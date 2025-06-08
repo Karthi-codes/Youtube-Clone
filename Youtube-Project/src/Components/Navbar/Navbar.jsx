@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom'
 
 const Navbar = ({ setSidebar }) => {
   return (
-    <nav className='flex-div'>
+    <nav className='flex-div' id='hello'>
       <div className='nav-left flex-div'>
         <img className='menu-icon' onClick={() => setSidebar(pre => pre === false ? true : false)} src={menu_icon} alt="" />
         <Link to="/"><img className='logo' src={logo} alt="" /></Link>
